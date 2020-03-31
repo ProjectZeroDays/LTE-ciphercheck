@@ -8,6 +8,20 @@ RUN apt update && \
                    libboost-program-options-dev libconfig++-dev\
                    libsctp-dev libuhd-dev libpcsclite-dev pcsc-tools pcscd
 
+# Stuff for LimeSDR
+RUN add-apt-repository -y ppa:pothosware/framework
+RUN add-apt-repository -y ppa:pothosware/support
+RUN add-apt-repository -y ppa:myriadrf/drivers
+RUN apt-get update
+RUN apt-get install pothos-all python-pothos python3-pothos pothos-python-dev soapysdr-tools python-soapysdr python-numpy python3-soapysdr python3-numpy soapysdr-module-remote soapysdr-server -y
+RUN apt remove limesdr0.6-module-audio -y
+RUN apt install soapysdr-module-all -y
+RUN add-apt-repository -y ppa:myriadrf/drivers
+RUN apt-get update
+RUN apt-get install limesuite liblimesuite-dev limesuite-udev limesuite-images soapysdr soapysdr-module-lms7 -y
+RUN apt-get install libsoapysdr-dev cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev git build-essential -y
+# End Of Stuff for LimeSDR
+
 RUN mkdir srsLTE_sec-algo-test
 # copies entire source code into container
 COPY ./ srsLTE_sec-algo-test/
